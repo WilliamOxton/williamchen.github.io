@@ -1,0 +1,497 @@
+/* ═══════════════════════════════════════════════════════════════
+   Jazz / Vinyl Personal Homepage — stylesheet
+   Palette: deep black · amber gold · warm cream
+   Fonts  : Playfair Display (headings) · Bebas Neue (labels)
+            Josefin Sans (body)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Custom properties ────────────────────────────────────────── */
+:root {
+  --bg:           #0c0e14;
+  --bg-alt:       #12151e;
+  --gold:         #c9a84c;
+  --gold-light:   #e2c97e;
+  --gold-dim:     rgba(201,168,76,.18);
+  --cream:        #ede5d4;
+  --cream-dim:    #a09278;
+  --cream-muted:  #6b5f50;
+  --border:       rgba(201,168,76,.22);
+  --radius:       2px;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-label:   'Bebas Neue', Impact, sans-serif;
+  --font-body:    'Josefin Sans', 'Helvetica Neue', sans-serif;
+
+  --max-w: 820px;
+  --px: clamp(1.2rem, 5vw, 3rem);
+}
+
+/* ── Reset ────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ─────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* ── Grain texture overlay ────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 900;
+  opacity: .045;
+  /* SVG fractal-noise as a data-URI tile */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+}
+
+/* ── Art-Deco corner ornaments ────────────────────────────────── */
+.corner {
+  position: fixed;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+  z-index: 200;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: .55;
+}
+.corner--tl { top: 18px; left: 18px;  border-width: 2px 0 0 2px; }
+.corner--tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
+.corner--bl { bottom: 18px; left: 18px;  border-width: 0 0 2px 2px; }
+.corner--br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+
+/* ── Sticky header ────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(12,14,20,.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: .7rem var(--px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-header__name {
+  font-family: var(--font-display);
+  font-size: clamp(.9rem, 2vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--cream);
+  white-space: nowrap;
+}
+
+.site-header__sep { color: var(--gold); }
+.site-header__name-zh { color: var(--cream-dim); }
+
+.site-header__controls {
+  display: flex;
+  gap: .6rem;
+  flex-shrink: 0;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.btn {
+  font-family: var(--font-label);
+  font-size: .95rem;
+  letter-spacing: .12em;
+  padding: .35rem .9rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+  border-radius: var(--radius);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--cream-dim);
+}
+.btn--ghost:hover, .btn--ghost:focus-visible {
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  border-color: var(--gold);
+  outline: none;
+}
+
+.btn--gold {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.btn--gold:hover, .btn--gold:focus-visible {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  outline: none;
+}
+
+/* ── Main / Resume container ──────────────────────────────────── */
+#main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 3rem var(--px) 4rem;
+}
+
+/* ── Loading animation ────────────────────────────────────────── */
+.resume__loading {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  padding: 6rem 0;
+}
+.resume__loading-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.resume__loading-dot:nth-child(2) { animation-delay: .2s; }
+.resume__loading-dot:nth-child(3) { animation-delay: .4s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: .2; transform: scale(.8); }
+  50%       { opacity: 1;  transform: scale(1.2); }
+}
+
+/* ── Error state ──────────────────────────────────────────────── */
+.resume__error {
+  text-align: center;
+  color: var(--cream-muted);
+  padding: 4rem 0;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Resume content — rendered Markdown
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Hero: name (h1) ──────────────────────────────────────────── */
+.resume h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: .06em;
+  text-align: center;
+  color: var(--cream);
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+
+/* ── Contact info (first <p> after h1) ───────────────────────── */
+.resume .contact-info {
+  text-align: center;
+  font-size: .82rem;
+  letter-spacing: .12em;
+  color: var(--cream-dim);
+  margin-bottom: 3.5rem;
+}
+
+/* ── Section headers (h2) — Art-Deco rule ─────────────────────── */
+.resume h2 {
+  font-family: var(--font-label);
+  font-size: 1.15rem;
+  letter-spacing: .32em;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.2rem 0 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  white-space: nowrap;
+}
+.resume h2::before,
+.resume h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold));
+  opacity: .55;
+}
+.resume h2::after {
+  background: linear-gradient(to left, transparent, var(--gold));
+}
+
+/* ── Timeline dates (h3) ──────────────────────────────────────── */
+.resume h3 {
+  font-family: var(--font-body);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 2rem 0 .4rem;
+  padding-left: .9rem;
+  border-left: 2px solid var(--gold);
+}
+
+/* ── Body paragraphs ──────────────────────────────────────────── */
+.resume p {
+  color: var(--cream);
+  margin-bottom: .8rem;
+  font-weight: 300;
+}
+
+/* ── Bold text ────────────────────────────────────────────────── */
+.resume strong {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+/* ── Italic / em ──────────────────────────────────────────────── */
+.resume em {
+  font-style: italic;
+  color: var(--cream-dim);
+}
+
+/* ── Blockquote (motto) ───────────────────────────────────────── */
+.resume blockquote {
+  margin: 1.6rem 0;
+  padding: .8rem 1.4rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(201,168,76,.07);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.resume blockquote p {
+  color: var(--gold-light);
+  font-style: italic;
+  margin: 0;
+  font-size: .95rem;
+}
+
+/* ── Unordered lists (awards, student work, hobbies) ──────────── */
+.resume ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: .8rem;
+}
+.resume ul li {
+  position: relative;
+  padding: .3rem 0 .3rem 1.5rem;
+  font-weight: 300;
+  border-bottom: 1px solid rgba(201,168,76,.08);
+}
+.resume ul li:last-child { border-bottom: none; }
+.resume ul li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: .45rem;
+  color: var(--gold);
+  font-size: .45rem;
+  line-height: 1;
+}
+
+/* ── Ordered lists (publications) ────────────────────────────── */
+.resume ol {
+  list-style: none;
+  counter-reset: pub;
+  padding: 0;
+  margin-bottom: .8rem;
+}
+.resume ol li {
+  counter-increment: pub;
+  position: relative;
+  padding: .7rem 0 .7rem 3rem;
+  border-bottom: 1px solid rgba(201,168,76,.08);
+  font-weight: 300;
+  font-size: .93rem;
+}
+.resume ol li:last-child { border-bottom: none; }
+.resume ol li::before {
+  content: counter(pub);
+  position: absolute;
+  left: 0;
+  top: .65rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: var(--font-label);
+  font-size: 1.05rem;
+  line-height: 1.9rem;
+  text-align: center;
+  border-radius: var(--radius);
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.6rem var(--px);
+}
+.site-footer__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.site-footer__motto {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: .9rem;
+  color: var(--cream-muted);
+  letter-spacing: .08em;
+}
+
+/* Tiny vinyl disc ornament in footer */
+.site-footer__vinyl {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  opacity: .4;
+  position: relative;
+}
+.site-footer__vinyl::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT / PDF styles
+   Goal: clean A4 academic CV — white bg, dark text
+   ═══════════════════════════════════════════════════════════════ */
+@media print {
+  /* Hide everything decorative */
+  .no-print,
+  .grain,
+  .corner,
+  .site-header,
+  .site-footer { display: none !important; }
+
+  /* Page setup */
+  @page {
+    size: A4 portrait;
+    margin: 1.4cm 1.8cm;
+  }
+
+  /* Force white background + dark text everywhere */
+  html, body, #main, .resume, .resume * {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: #1a1a1a !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-size: 9.5pt;
+    line-height: 1.45;
+    font-family: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  #main {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .resume h1 {
+    font-size: 22pt;
+    font-family: 'Playfair Display', Georgia, serif;
+    text-align: center;
+    margin-bottom: .15cm;
+    letter-spacing: .04em;
+    color: #111 !important;
+  }
+
+  .resume .contact-info {
+    text-align: center;
+    font-size: 8.5pt;
+    letter-spacing: .08em;
+    color: #555 !important;
+    margin-bottom: .5cm;
+  }
+
+  .resume h2 {
+    font-size: 10.5pt;
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    letter-spacing: .22em;
+    color: #1a1a1a !important;
+    display: block;
+    text-align: left;
+    margin: .55cm 0 .15cm;
+    padding-bottom: .1cm;
+    border-bottom: 1pt solid #444;
+    border-top: 1pt solid #444;
+    padding-top: .08cm;
+  }
+  .resume h2::before, .resume h2::after { display: none; }
+
+  .resume h3 {
+    font-size: 8.5pt;
+    letter-spacing: .12em;
+    color: #555 !important;
+    margin: .3cm 0 .05cm;
+    border-left: 2pt solid #888;
+    padding-left: .25cm;
+  }
+
+  .resume p {
+    font-size: 9pt;
+    margin-bottom: .2cm;
+    color: #1a1a1a !important;
+  }
+
+  .resume strong { color: #000 !important; font-weight: 700; }
+  .resume em     { color: #333 !important; font-style: italic; }
+
+  .resume blockquote {
+    border-left: 2pt solid #888 !important;
+    background: none !important;
+    padding: .05cm .3cm;
+    margin: .2cm 0;
+  }
+  .resume blockquote p { color: #444 !important; font-size: 9pt; }
+
+  .resume ul li {
+    padding: .08cm 0 .08cm 1em;
+    border-bottom: none;
+    color: #1a1a1a !important;
+  }
+  .resume ul li::before { color: #777 !important; }
+
+  .resume ol li {
+    padding: .12cm 0 .12cm 2.2em;
+    border-bottom: none;
+    font-size: 9pt;
+    color: #1a1a1a !important;
+  }
+  .resume ol li::before {
+    background: none !important;
+    color: #1a1a1a !important;
+    border: 1pt solid #555;
+    font-size: 8pt;
+    line-height: 1.7rem;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  /* Avoid orphaned headers */
+  h2, h3 { page-break-after: avoid; break-after: avoid; }
+  li, p   { page-break-inside: avoid; break-inside: avoid; }
+}
