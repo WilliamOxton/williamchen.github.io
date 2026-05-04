@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weijie Chen — Personal Homepage</title>
+  <meta name="description" content="Personal homepage of Weijie Chen, PhD candidate in Cyber Security at HUST." />
+
+  <!-- Google Fonts: Playfair Display · Bebas Neue · Josefin Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Grain texture overlay (screen only) -->
+  <div class="grain no-print" aria-hidden="true"></div>
+
+  <!-- Art-Deco corner ornaments (screen only) -->
+  <div class="corner corner--tl no-print" aria-hidden="true"></div>
+  <div class="corner corner--tr no-print" aria-hidden="true"></div>
+  <div class="corner corner--bl no-print" aria-hidden="true"></div>
+  <div class="corner corner--br no-print" aria-hidden="true"></div>
+
+  <!-- ── Sticky header ── -->
+  <header class="site-header no-print" role="banner">
+    <div class="site-header__inner">
+      <span class="site-header__name" aria-label="Site name">
+        <span class="site-header__name-en">Weijie Chen</span>
+        <span class="site-header__sep" aria-hidden="true">&nbsp;·&nbsp;</span>
+        <span class="site-header__name-zh">陈维杰</span>
+      </span>
+      <div class="site-header__controls">
+        <button id="lang-toggle" class="btn btn--ghost" aria-label="Toggle language">
+          <span>中文</span>
+        </button>
+        <button id="pdf-btn" class="btn btn--gold" aria-label="Export CV as PDF">
+          <span>↓&nbsp;CV&nbsp;PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main content (populated by JS) ── -->
+  <main id="main" role="main">
+    <article id="resume" class="resume" aria-live="polite">
+      <div class="resume__loading">
+        <span class="resume__loading-dot"></span>
+        <span class="resume__loading-dot"></span>
+        <span class="resume__loading-dot"></span>
+      </div>
+    </article>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer no-print" role="contentinfo">
+    <div class="site-footer__inner">
+      <span class="site-footer__vinyl" aria-hidden="true"></span>
+      <span class="site-footer__motto">♩&nbsp;&nbsp;Sic Parvis Magna&nbsp;&nbsp;♩</span>
+      <span class="site-footer__vinyl" aria-hidden="true"></span>
+    </div>
+  </footer>
+
+  <!-- marked.js — Markdown → HTML parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
