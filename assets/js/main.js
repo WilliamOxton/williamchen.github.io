@@ -95,14 +95,6 @@
     window.print();
   });
 
-  /* ── Keyboard shortcut: P for PDF ───────────────────────────── */
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'p' && (e.ctrlKey || e.metaKey) && e.shiftKey) {
-      e.preventDefault();
-      window.print();
-    }
-  });
-
   /* ── Initialise ──────────────────────────────────────────────── */
   applyLang(currentLang);
 
